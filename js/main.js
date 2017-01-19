@@ -96,17 +96,67 @@ document.getElementById("add-rounding")
 // This is also useful for validating forms; can do "keyup" instead of "click" to add
 // red border if they don't have an @ or a .edu, etc.
 
-document.getElementById("wrapper").addEventListener("click", function(currentTargetEvent) {
+document.getElementById("wrapper")
+  .addEventListener("click", function(currentTargetEvent) {
   console.log("target", event.target);
   console.log("currentTarget", event.currentTarget);
 
-  if (event.target.tagName.toLowerCase() === "li"){
+  if (event.target.tagName.toLowerCase() === "li") {
     console.log("You clicked on the <li> element");
   }
 
+  if (event.target.className === "article-section") {
+    console.log('You clicked on an "article-section" element');
+  }
 });
 
 // target is the h1
 // currentTarget is the wrapper; that's where this listener is being attached
 // you will always get back a target of whatever you clicked on (ex: <li>DarthVader</li>)
 // but a currentTarget of the wrapper
+
+var myArr = [
+"A long time ago in a galaxy far, far away...",
+"Use the force, Luke.",
+"The force is strong with this one.",
+"Do. Or do not. There is no try.",
+"Fear is the path to the dark side.",
+"Someday I will be the most powerful Jedi ever.",
+"You were the chosen one!"
+]
+
+// Here's a forEach loop where we're calling an anonymous (un-named) function
+// and giving it two parameters (value & index of the array items)
+// syntax: array.forEach(function(currentValue, index)
+// -can also take a 3rd argument and a thisValue: http: www.w3schools.com/jsref/jsref_forEach.asp
+// we're using a string format from ES6
+// could also use a regular for loop or for in loop
+
+myArr.forEach(function(currentArrayValue, arrayIndex) {
+
+  var phraseString = `<div id="currentArrayValue--${arrayIndex}">
+                      <h3>${currentArrayValue} - Star Wars</h3>
+                      </div>`
+
+  let phraseDiv = document.createElement("div");
+  phraseDiv.innerHTML = phraseString;
+  document.getElementById("right-here").appendChild(phraseDiv);
+  var phraseDom = document.getElementById(`currentArrayValue--${arrayIndex}`);
+
+  phraseDom.addEventListener("click", function(mouseEvent) {
+    console.log("event", mouseEvent);
+    mouseEvent.currentTarget.classList.add("red");
+  });
+});
+
+// this is a TEMPLATE LITERAL and uses `` and ${} to insert html and variables
+// without having to concatenate with +
+
+// Div1 = "right-here"
+// Div2 = phraseDiv; created by let phraseDiv = document.createElement("div");
+// Div3 = phraseString; created by phraseDiv.innerHTML = phraseString; this puts the 3rd div that we created - phraseString - inside Div2
+// This appends phraseDiv to "right-here", and pharseDiv contains phraseString:  document.getElementById("right-here").appendChild(phraseDiv);
+// the event listener is attached to the currentTarget of the wrapper, but we get back a target of whatever quote we clicked on
+
+
+// to create BUBBLING effect: click, function, bubblingparameter
