@@ -1,3 +1,108 @@
+// ********** STEVE'S VIDEOS ********** 
+// https://www.youtube.com/playlist?list=PLX0ucpUE_qIOUsxGNEPpP9yonb4zerVIC
+
+// *** Basic JavaScript Event Listeners ***
+
+var outputEl = document.getElementById("output-target");
+
+document.getElementById(“page-title”).addEventListener(“click”, function (event) {
+  outputEl.innerHTML = `You clicked on the heading "${event.target.innerHTML}"`;
+});
+
+//create an element reference where we'll output feedback to the DOM:
+// add event listener
+// tell it what event you want to listen for ("click")
+// give it a function reference for what to execute when that event is broadcast
+// define an argument ("event") to accept the input b/c the browser is going to send the event to our function 
+// look inside event.target (the property that holds the DOM element that was clicked on)
+// ** target = what was clicked on!
+// reading the HTML of it
+// loading up the ES6 string & outputting it back to the user saying that's what you clicked on
+// could also say: `You clicked on the heading "${event.target.id}"` to get the element's id.
+
+
+// *** JavaScript Event Listener Types ***
+
+var outputEl = document.getElementById("output-target");
+
+var articleEl = document.getElementsByClassName("article-section");
+console.log("articleEl", articleEl);
+
+function handleSectionClick(MouseEvent) {
+  var elementText = MouseEvent.target.innerHTML;
+  outputEl.innerHTML = "You clicked on the " + elementText + " section";
+}
+
+// ** SAME AS: **
+// for (var i = 0; i < articleEl.length; i++) {
+//   articleEl.item(i).addEventListener("click", handleSectionClick);
+// }
+
+// Anytime you do document.getElementsByClassName, it's always going to return an array
+
+// can write function separately instead of inline
+
+// To add an event listener to an array of DOM elements is a for loop.
+// looping over it with for loop
+// for each item, add event listener (click + function reference that holds the logic when the event is broadcast)
+
+// Two arguments to add an event listener:
+// 1. what the name of the event is
+// 2. a function reference to execute when that element is broadcast (line 37)
+
+var header = document.getElementById("page-header");
+
+function handleHeaderMouseOver(event) {
+  outputEl.innerHTML = "You moved your mouse over me";
+}
+
+function handleHeaderMouseOut(event) {
+  outputEl.innerHTML = "Why you leave me?";
+}
+
+header.addEventListener("mouseover", handleHeaderMouseOver);
+header.addEventListener("mouseout", handleHeaderMouseOut);
+
+// 3 Types of Key Events:
+// 1. keydown
+// 2. keypress
+// 3. keyup - triggers as soon as you let up on a key you've pressed
+
+// Binding/Mirroring: text of input box & text of output element mirror each other
+
+var fieldEl = document.getElementById("keypress-input");
+
+fieldEl.addEventListener("keyup", function(event){
+  console.log("event", event);
+  outputEl.innerHTML = event.target.value;
+});
+
+// Key code of Enter Key is 13 ***
+
+// Syntax to add an event listener is same:
+// .addEventListener("argument1", argument2(event));
+// argument1: "click" / "mouseover" / "mouseout"
+// argument2: function(event)
+// * 2nd argument has to be a function that defines an input *
+// * An argument to accept input that is going to be the event which the browser sends it 
+
+// ******  OTHER WAYS TO TARGET SPECIFIC PARTS OF THE PAGE ******
+if (event.target.tagName.toLowerCase() === "li") {
+    console.log("You clicked on an <li> element");
+}
+
+// Handle the click event on any DOM element with a certain class
+if (event.target.className === "article-section") {
+  console.log("You clicked on an `article-section` element");
+}
+
+// Inspect the `id` property of the event target
+if (event.target.id === "page-title") {
+  console.log("You clicked on the page-title element");
+}
+
+// ********** IN CLASS ********** 
+
 // NOTES:
 // anything that takes place in the browser window is being listened to by the browser
 
@@ -16,11 +121,12 @@ function handleSectionClick(clickEvent){
 }
 
 // this function is holding onto a reference of all the event properties
-// you can call MouseEvent whatever you want
+// you can call clickEvent whatever you want
 
-for (var i=0; i < articleEl.length; i++) {
-  articleEl.item(i).addEventListener("click", handleSectionClick);
-}
+// ** SAME AS: **
+// for (var i=0; i < articleEl.length; i++) {
+//   articleEl.item(i).addEventListener("click", handleSectionClick);
+// }
 
 // handleSectionClick is a function that we want to run when the click happens
 // this is how we're handling an html collection; looks like an array
